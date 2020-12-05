@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-JLMVCWeb_Server-2766e034-b7c0-4192-ae72-4aefdb3fb5af</UserSecretsId>
+    <AssemblyName>JLForecasterWeb</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
