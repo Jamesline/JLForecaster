@@ -1,3 +1,5 @@
+﻿using JLForecasterWeb.Models;
+using JLForecasterWeb.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -39,6 +41,8 @@ namespace JLMVCWeb
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
+            services.AddScoped<IFileService>();
+            services.AddSingleton<FileLoaderService>();
             services.AddRazorPages()
                  .AddMicrosoftIdentityUI();
         }

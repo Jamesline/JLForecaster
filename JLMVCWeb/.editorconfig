@@ -141,6 +141,12 @@ dotnet_analyzer_diagnostic.severity = suggestion
 # IDE0005: Using directive is unnecessary.
 dotnet_diagnostic.IDE0005.severity = suggestion
 
+# CS0219: Variable is assigned but its value is never used
+dotnet_diagnostic.CS0219.severity = suggestion
+
+# CS0168: Variable is declared but never used
+dotnet_diagnostic.CS0168.severity = suggestion
+
 [*.vb]
 # Modifier preferences
 visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public,Friend,NotOverridable,Overridable,MustOverride,Overloads,Overrides,MustInherit,NotInheritable,Static,Shared,Shadows,ReadOnly,WriteOnly,Dim,Const,WithEvents,Widening,Narrowing,Custom,Async:suggestion
