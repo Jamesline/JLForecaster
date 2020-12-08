@@ -41,7 +41,7 @@ namespace JLMVCWeb
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
-            services.AddScoped<IFileService>();
+            services.AddScoped<FileService>();
             services.AddSingleton<FileLoaderService>();
             services.AddRazorPages()
                  .AddMicrosoftIdentityUI();
