@@ -12,13 +12,13 @@ using Microsoft.Extensions.Logging;
 
 namespace JLForecasterWeb.Services
 {
-    public class FileService
+    public class FileLoadService
     {
-        private readonly ILogger<FileService> _logger;
+        private readonly ILogger<FileLoadService> _logger;
         private readonly IConfiguration _config;
         private readonly string _storagekey;
         private readonly string _storageshare;
-        public FileService(ILogger<FileService> logger,
+        public FileLoadService(ILogger<FileLoadService> logger,
                               IConfiguration config)
         {
             _logger = logger;
@@ -29,6 +29,7 @@ namespace JLForecasterWeb.Services
 
         public void AZFileStore(string FileName, string LocalFilePath, string FileType)
         {
+            _logger.LogInformation("AZFilestore: Called");
             // Name of the share, directory, and file we'll create
             string dirName = FileType;
             string fileName = FileName;

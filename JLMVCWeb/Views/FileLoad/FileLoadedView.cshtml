@@ -1,0 +1,29 @@
+﻿@model JLForecasterWeb.Models.FileService
+
+@{
+    ViewData["Title"] = "FileLoaded";
+}
+
+<h1>Index</h1>
+
+<div>
+    <h4>File Uploaded</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FileName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FileName)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FileSize)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FileSize)
+        </dd>
+    </dl>
+</div>
+

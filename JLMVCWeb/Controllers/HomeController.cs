@@ -11,9 +11,9 @@ namespace JLForecasterWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly FileService _fileService;
+        private readonly FileLoadService _fileService;
 
-        public HomeController(ILogger<HomeController> logger, FileService fileService)
+        public HomeController(ILogger<HomeController> logger, FileLoadService fileService)
         {
             _logger = logger;
             _fileService = fileService;
