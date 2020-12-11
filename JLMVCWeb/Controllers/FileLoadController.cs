@@ -6,6 +6,7 @@ using JLForecasterWeb.Models;
 using JLForecasterWeb.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace JLForecasterWeb.Controllers
@@ -16,6 +17,7 @@ namespace JLForecasterWeb.Controllers
         private readonly ILogger<FileLoadController> _logger;
         private readonly FileLoadService _fileLoadService;
         private readonly FileService _fileService;
+
 
         public FileLoadController(ILogger<FileLoadController> logger, FileLoadService fileLoadService, FileService fileService)
         {
@@ -29,29 +31,15 @@ namespace JLForecasterWeb.Controllers
         }
 
         [HttpPost("FileLoadedView")]
-        public async Task<IActionResult> FileLoadedView(IFormFile pocFile)
+        public async Task<IActionResult> FileLoadedView(FileLoadModel fileLoadedModel)
         {
-
-            //var fileType = "Geco";
-            //long size = pocFile.Length;
-            //var basePath = Path.Combine(_webHostEnvironment.WebRootPath + "\\Files\\" + fileType);
-            //var filePath = Path.Combine(basePath, pocFile.FileName);
-            //_fileService.FileSize = size.ToString();
-            //if (size > 0)
-            //{
-            //    _fileService.status = "Fileloaded";
-            //    _fileService.FileContent = pocFile;
-            //    _fileService.FileName = filePath;
-            //    using (var stream = new FileStream(filePath, FileMode.Create))
-            //    {
-            //        await pocFile.CopyToAsync(stream);
-            //    }
-            //}
-            //else
-            //{
-            //    _fileService.status = "File load failed.";
-            //    // setup an error screen return
-            //}
+            var pocFile = fileLoadedModel.FileLoaded;
+            long size = pocFile.Length;
+            var FileName = pocFile.FileName;
+            //FileLoadService fileloadservice = new FileLoadService(_logger,)
+            var result = await _fileLoadService.AZFileStorer(fileLoadedModel.FileLoaded, fileLoadedModel.FileType);
+            _fileService.FileName = FileName;
+            _fileService.FileSize = size.ToString();
             return View(_fileService);
         }
     }

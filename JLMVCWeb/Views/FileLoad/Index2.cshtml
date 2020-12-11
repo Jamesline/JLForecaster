@@ -1,26 +1,19 @@
-﻿@model JLForecasterWeb.Models.FileLoadModel
-@{
+﻿@{
     ViewData["Title"] = "File Loader";
 }
 
 <div class="text-center">
     <h1 class="display-4">File Loader</h1>
 </div>
-<h3>File Selector</h3>
+<h3>File Reader</h3>
 <div class="row">
     <section>
         <form method="post" enctype="multipart/form-data"
               asp-controller="FileLoad" asp-action="FileLoadedView">
             <div class="form-group">
                 <div class="col-md-10">
-                    <p>Upload file using this form:</p>
-                    <input type="file" name="FileLoaded" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    <p>File type</p>
-                    <input name="FileType" />
+                    <p>Upload File using this form:</p>
+                    <input type="file" name="pocFile" />
                 </div>
             </div>
             <div class="form-group">

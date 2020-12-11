@@ -9,6 +9,7 @@ using Azure.Storage.Files.Shares.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace JLForecasterWeb.Services
 {
@@ -26,17 +27,71 @@ namespace JLForecasterWeb.Services
             _storagekey= _config.GetSection("StorageString").Value;
             _storageshare = _config.GetSection("StorageLocation").Value;
         }
+        //public void AZFileStore(string FileName, string LocalFilePath, string FileType)
+        //{
+        //    _logger.LogInformation("AZFilestore: Called");
+        //    // Name of the share, directory, and file we'll create
+        //    string dirName = FileType;
+        //    string fileName = FileName;
+        //    // Path to the local file to upload
+        //    string localFilePath = LocalFilePath;
 
-        public void AZFileStore(string FileName, string LocalFilePath, string FileType)
+        //    // Get a reference to a share and then create it
+        //    ShareClient share = new ShareClient(_storagekey, _storageshare);
+        //    try
+        //    {
+        //        // Try to create the share again
+        //        share.Create();
+        //    }
+        //    catch (RequestFailedException ex)
+        //        when (ex.ErrorCode == ShareErrorCode.ShareAlreadyExists)
+        //    {
+        //        // Ignore any errors if the share already exists
+        //    }
+        //    // Get a reference to a directory and create it
+        //    ShareDirectoryClient directory = share.GetDirectoryClient(dirName);
+        //    try
+        //    {
+        //        // Try to create the share again
+        //        directory.Create();
+        //    }
+        //    catch (RequestFailedException ex)
+        //    {
+        //        // Ignore any errors if the share already exists
+        //    }
+
+        //    // Get a reference to a file and upload it
+        //    ShareFileClient file = directory.GetFileClient(fileName);
+        //    using (FileStream stream = File.OpenRead(localFilePath))
+        //    {
+        //        file.Create(stream.Length);
+        //        file.UploadRange(
+        //            new HttpRange(0, stream.Length),
+        //            stream);
+        //    }
+        //}
+        public async Task<string> AZFileStorer(IFormFile loadedFile, string fileType)
         {
-            _logger.LogInformation("AZFilestore: Called");
-            // Name of the share, directory, and file we'll create
-            string dirName = FileType;
-            string fileName = FileName;
-            // Path to the local file to upload
-            string localFilePath = LocalFilePath;
+            string dirName = fileType;
+            string fileName = loadedFile.FileName;
+            ShareFileClient shareFile = StorageSetup(loadedFile, fileType);
 
-            // Get a reference to a share and then create it
+            using (var stream = new MemoryStream())
+            {
+                await loadedFile.CopyToAsync(stream);
+                shareFile.Create(stream.Length);
+                //shareFile.UploadRange(
+                //  new HttpRange(0, stream.Length),
+                //   stream);
+
+            }
+            return "Success";
+        }
+        private ShareFileClient StorageSetup(IFormFile loadedFile, string fileType)
+        {
+            string dirName = fileType;
+            string fileName = loadedFile.FileName;
+
             ShareClient share = new ShareClient(_storagekey, _storageshare);
             try
             {
@@ -48,7 +103,6 @@ namespace JLForecasterWeb.Services
             {
                 // Ignore any errors if the share already exists
             }
-            // Get a reference to a directory and create it
             ShareDirectoryClient directory = share.GetDirectoryClient(dirName);
             try
             {
@@ -59,21 +113,9 @@ namespace JLForecasterWeb.Services
             {
                 // Ignore any errors if the share already exists
             }
-            // directory.Create();
-
-            // Get a reference to a file and upload it
-            ShareFileClient file = directory.GetFileClient(fileName);
-            using (FileStream stream = File.OpenRead(localFilePath))
-            {
-                file.Create(stream.Length);
-                file.UploadRange(
-                    new HttpRange(0, stream.Length),
-                    stream);
-            }
-        }
-        private void StoreFile()
-        {
-
+            ShareFileClient shareFile = directory.GetFileClient(fileName);
+            return shareFile;
         }
     }
 }
+

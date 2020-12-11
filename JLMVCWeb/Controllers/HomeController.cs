@@ -33,7 +33,7 @@ namespace JLForecasterWeb.Controllers
         public IActionResult Example()
         {
             //IFileService financeService = new FileService();
-            _fileService.AZFileStore("Geco2.xlsx", @"C:\Data\Geco\Nov 1 BU 1.xlsx", "geco");
+            //_fileService.AZFileStore("Geco2.xlsx", @"C:\Data\Geco\Nov 1 BU 1.xlsx", "geco");
             return View();
         }
 
