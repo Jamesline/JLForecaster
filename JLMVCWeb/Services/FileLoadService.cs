@@ -29,6 +29,7 @@ namespace JLForecasterWeb.Services
         }
         public async Task<string> AZFileStorer(IFormFile loadedFile, string fileType)
         {
+            _logger.LogInformation("File Store Task Called");
             string dirName = fileType;
             string fileName = loadedFile.FileName;
             ShareFileClient shareFile = StorageSetup(loadedFile, fileType);
