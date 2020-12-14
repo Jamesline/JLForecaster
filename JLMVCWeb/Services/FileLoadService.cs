@@ -45,7 +45,7 @@ namespace JLForecasterWeb.Services
             catch (Exception ex)
             {
 
-                return "Fail: Error: " + ex.Message;
+                return "Fail: Errormessage : " + ex.Message;
             }
         }
         private ShareFileClient StorageSetup(IFormFile loadedFile, string fileType)
