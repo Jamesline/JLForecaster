@@ -11,9 +11,10 @@ namespace JLForecasterWeb.Models
     {
         [Required]
         [Display(Name = "File to be loaded")]
-        public IFormFile FileLoaded { get; set; }
+        public IFormFile FileContentLoaded { get; set; }
         [Required]
         [Display(Name = "File type")]
-        public string FileType { get; set; }
+        public string FileTypeExt { get; set; }
+        
     }
 }

@@ -16,14 +16,14 @@ namespace JLForecasterWeb.Controllers
     {
         private readonly ILogger<FileLoadController> _logger;
         private readonly FileLoadService _fileLoadService;
-        private readonly FileService _fileService;
+        private readonly FileServiceModel _fileServiceModel;
 
 
-        public FileLoadController(ILogger<FileLoadController> logger, FileLoadService fileLoadService, FileService fileService)
+        public FileLoadController(ILogger<FileLoadController> logger, FileLoadService fileLoadService, FileServiceModel fileServiceModel)
         {
             _logger = logger;
             _fileLoadService = fileLoadService;
-            _fileService = fileService;
+            _fileServiceModel = fileServiceModel;
         }
         public IActionResult Index()
         {
@@ -33,14 +33,42 @@ namespace JLForecasterWeb.Controllers
         [HttpPost("FileLoadedView")]
         public async Task<IActionResult> FileLoadedView(FileLoadModel fileLoadedModel)
         {
-            var pocFile = fileLoadedModel.FileLoaded;
-            long size = pocFile.Length;
-            var FileName = pocFile.FileName;
-            //FileLoadService fileloadservice = new FileLoadService(_logger,)
-            var result = await _fileLoadService.AZFileStorer(fileLoadedModel.FileLoaded, fileLoadedModel.FileType);
-            _fileService.FileName = FileName;
-            _fileService.FileSize = size.ToString();
-            return View(_fileService);
+            var loadedFile = fileLoadedModel.FileContentLoaded;
+            if (loadedFile == null)
+            {
+                return View(ErrorMessage());
+            }
+            long fileSize = loadedFile.Length;
+            if (fileSize < 1)
+            {
+                return View(ErrorMessage());
+            }
+
+            var fileName = loadedFile.FileName;
+            var result = await _fileLoadService.AZFileStorer(loadedFile, fileLoadedModel.FileTypeExt);
+            if (result =="Success")
+            {
+                _fileServiceModel.fileName = fileName;
+                _fileServiceModel.fileSize = fileSize.ToString();
+                _fileServiceModel.status = "File Loaded";
+                _fileServiceModel.fileExt = fileLoadedModel.FileTypeExt; 
+            }
+            else
+            {
+                return View(ErrorMessage());
+            }
+
+            return View(_fileServiceModel);
+            //return View();
+        }
+        
+        private FileServiceModel ErrorMessage()
+        {
+            _fileServiceModel.fileName = "None";
+            _fileServiceModel.fileSize = "0";
+            _fileServiceModel.status = "File load failed";
+            _fileServiceModel.fileExt = "None";
+            return _fileServiceModel;
         }
     }
 }

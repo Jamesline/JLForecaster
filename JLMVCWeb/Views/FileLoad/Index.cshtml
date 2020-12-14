@@ -14,13 +14,19 @@
             <div class="form-group">
                 <div class="col-md-10">
                     <p>Upload file using this form:</p>
-                    <input type="file" name="FileLoaded" />
+                    <input type="file" name="FileContentLoaded" />
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-10">
-                    <p>File type</p>
-                    <input name="FileType" />
+                    <label for="FileTypeExt">FileType:</label>
+                    <select name="FileTypeExt" id="FileTypeExt">
+                        <option value="Geco">Geco</option>
+                        <option value="Coge">Coge</option>
+                        <option value="Combi">Combi</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <br><br>
                 </div>
             </div>
             <div class="form-group">
