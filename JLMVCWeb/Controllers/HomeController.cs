@@ -33,7 +33,7 @@ namespace JLForecasterWeb.Controllers
 
         public IActionResult Example()
         {
-           
+            return View();
         }
 
         [AllowAnonymous]
