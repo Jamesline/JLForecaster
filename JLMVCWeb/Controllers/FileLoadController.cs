@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using JLForecasterWeb.Filters;
 using JLForecasterWeb.Models;
 using JLForecasterWeb.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace JLForecasterWeb.Controllers
 {
+    [ViewLayout("_FileManagerLayout")]
     [Microsoft.AspNetCore.Authorization.Authorize]
     public class FileLoadController : Controller
     {
@@ -46,12 +43,12 @@ namespace JLForecasterWeb.Controllers
 
             var fileName = loadedFile.FileName;
             var result = await _fileLoadService.AZFileStorer(loadedFile, fileLoadedModel.FileTypeExt);
-            if (result =="Success")
+            if (result == "Success")
             {
                 _fileServiceModel.fileName = fileName;
                 _fileServiceModel.fileSize = fileSize.ToString();
                 _fileServiceModel.status = "File Loaded";
-                _fileServiceModel.fileExt = fileLoadedModel.FileTypeExt; 
+                _fileServiceModel.fileExt = fileLoadedModel.FileTypeExt;
             }
             else
             {
@@ -61,7 +58,7 @@ namespace JLForecasterWeb.Controllers
             return View(_fileServiceModel);
             //return View();
         }
-        
+
         private FileServiceModel ErrorMessage()
         {
             _fileServiceModel.fileName = "None";

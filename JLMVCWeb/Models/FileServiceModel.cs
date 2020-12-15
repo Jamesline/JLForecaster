@@ -15,7 +15,5 @@ namespace JLForecasterWeb.Models
         public string fileExt { get; set; }
         public string status { get; set; }
         public IFormFile fileContent { get; set; }
-        
-
     }
 }

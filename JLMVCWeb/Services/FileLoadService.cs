@@ -24,7 +24,7 @@ namespace JLForecasterWeb.Services
         {
             _logger = logger;
             _config = config;
-            _storagekey= _config.GetSection("StorageString").Value;
+            _storagekey = _config.GetSection("StorageString").Value;
             _storageshare = _config.GetSection("StorageLocation").Value;
         }
         public async Task<string> AZFileStorer(IFormFile loadedFile, string fileType)
