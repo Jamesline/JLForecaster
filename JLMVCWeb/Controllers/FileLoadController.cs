@@ -1,8 +1,13 @@
-﻿using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using JLForecasterWeb.Filters;
 using JLForecasterWeb.Models;
 using JLForecasterWeb.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace JLForecasterWeb.Controllers
@@ -48,7 +53,7 @@ namespace JLForecasterWeb.Controllers
                 _fileServiceModel.fileName = fileName;
                 _fileServiceModel.fileSize = fileSize.ToString();
                 _fileServiceModel.status = "File Loaded";
-                _fileServiceModel.fileExt = fileLoadedModel.FileTypeExt;
+                _fileServiceModel.fileExt = fileLoadedModel.FileTypeExt; 
             }
             else
             {
@@ -58,7 +63,7 @@ namespace JLForecasterWeb.Controllers
             return View(_fileServiceModel);
             //return View();
         }
-
+        
         private FileServiceModel ErrorMessage()
         {
             _fileServiceModel.fileName = "None";

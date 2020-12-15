@@ -1,4 +1,4 @@
-﻿using JLMVCWeb.Models;
+using JLMVCWeb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,7 +21,8 @@ namespace JLForecasterWeb.Controllers
 
         public IActionResult Index()
         {
-
+            //IFileService financeService = new FileService();
+            //financeService.AZFileStore("Geco2.xlsx", @"C:\Data\Geco\Nov 1 BU 1.xlsx", "geco");
             return View();
         }
        
@@ -32,6 +33,8 @@ namespace JLForecasterWeb.Controllers
 
         public IActionResult Example()
         {
+            IFileService financeService = new FileService();
+            financeService.AZFileStore("Geco2.xlsx", @"C:\Data\Geco\Nov 1 BU 1.xlsx", "geco");
             return View();
         }
 
